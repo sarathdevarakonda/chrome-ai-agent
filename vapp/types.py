@@ -23,6 +23,7 @@ class VApp(abc.ABC):
             command_name = command_data[0]
             command_args = command_data[1:]
             command = self.get_command(command_name)
+            print(command)
             if command:
                 command.do_run(self.context_store, *command_args)
             else:
@@ -34,8 +35,9 @@ class VApp(abc.ABC):
     def get_command(self, key):
         return self.command_store.get(key)
 
-    def get_frame_data_handler(self, key):
-        return self.frame_data_store.get(key)
+    def get_frame_data(self, key):
+        f_data =  self.frame_data_store.get(key)
+        return f_data.get_frame_data(self.context_store)
     
     def add_command(self, key, command):
         self.command_store[key] = command
@@ -45,6 +47,10 @@ class VApp(abc.ABC):
         
     def add_context_object(self, key, context_object):
         self.context_store[key] = context_object
+    
+    def remove_context_object(self, key):
+        self.context_store[key].destroy()
+        del self.context_store[key]
 
 class IContextObject(abc.ABC):
     def __init__(self):
