@@ -10,7 +10,7 @@ from selenium.webdriver.common.keys import Keys
 class ChatGPTChrome:
 
     def __init__(self):
-        self.chrome_path = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+        self.chrome_path = os.getenv('CHROME_PATH')
         self.port = self.find_available_port()  # Use the same port for all sessions
         self.driver = None
         self.chrome_process = None
