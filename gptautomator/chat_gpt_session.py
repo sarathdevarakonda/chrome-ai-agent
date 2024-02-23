@@ -5,6 +5,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 import time
+
+
 class ChatGPTSession:
     def __init__(self, gpt):
         self.messages = []
@@ -15,18 +17,15 @@ class ChatGPTSession:
     
     def ask(self, prompt):
         self._submit_prompt(prompt['value'])
-        timeout = 1  # seconds
         time.sleep(1)
         while True:
-            try:
-                WebDriverWait(self.gpt.driver, timeout).until(
-                    EC.presence_of_element_located((By.CSS_SELECTOR, 'button[data-testid="send-button"]'))
-                )
-                return self.gpt.return_last_response()    
-            except Exception as e:
-                pass
+            send_buttons = self.gpt.driver.find_elements(By.CSS_SELECTOR,'button[data-testid="send-button"]')
+            
+            if len(send_buttons) > 0:
+                return self.gpt.return_last_response()
+            time.sleep(1)
+
     
 
     def _submit_prompt(self, value):
         self.gpt.send_prompt_to_chatgpt(value)
-        
