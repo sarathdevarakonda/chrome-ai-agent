@@ -11,11 +11,17 @@ class IFrameData(abc.ABC):
         pass
 
 class VApp(abc.ABC):
-    def __init__(self):
+    def __init__(self,name):
         self.context_store = {}
         self.command_store = {}
         self.frame_data_store = {}
+        self.name = name
 
+    
+    @abc.abstractmethod
+    def destroy(self):
+        pass
+        
     def execute_commands(self, commands):
         for command_data in commands:
             if not command_data:
@@ -62,3 +68,11 @@ class IContextObject(abc.ABC):
 
     def get_value(self):
         return self.value
+
+class IInstallScript(abc.ABC):
+    @abc.abstractmethod
+    def install(self):
+        """
+        Abstract method to install a VApp.
+        """
+        pass

@@ -8,6 +8,8 @@ import os
 import socket
 import threading
 import time
+from dotenv import load_dotenv
+load_dotenv()
 
 class ChatGPTAutomation:
 
