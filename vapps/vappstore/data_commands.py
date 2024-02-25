@@ -8,15 +8,10 @@ class ListInstalledVApps(ICommand):
         super().__init__()
         self.data = None
     
-    def do_run(self, context_store, *args):
-        store = VappStore()
-        
-        if not store:
-            print("VappStore not available")
-            return None
-        
+    def do_run(self, ctx, *args):
+                
         data = []
-        for app_instance in store.installed_vapps.items():
+        for app_instance in ctx.get('installed_vapps', {}).items():
             obj = {
                 "NAME": app_instance.name,
             }

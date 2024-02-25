@@ -1,7 +1,5 @@
-from vapp.package_manager import PackageManager
-from vapp.types import ICommand, IContextObject, IFrameData, VApp
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
+from vapps.package_manager import PackageManager
+from vapps.platform_object_types import  IContextObject
 
 class WebDriverContextObject(IContextObject):
 

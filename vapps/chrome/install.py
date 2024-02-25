@@ -8,11 +8,10 @@ class ChromeInstallScript(IInstallScript):
     def __init__(self) -> None:
         super().__init__()
     
-    @property    
     def name():
-        return ChromeVapp.name
+        return "chrome"
         
-    def intialize(self):
+    def initialize(self):
         app = ChromeVapp()
         app.add_context_object("driver", WebDriverContextObject())
         
@@ -23,5 +22,5 @@ class ChromeInstallScript(IInstallScript):
         
         app.add_command("d_tab_navigated_elements",PageTabNavigatedElements())
         app.add_command("d_specific_elements",SpecificElementsData())
-        app.add_framadd_commande_data("d_body_text",BodyText())
+        app.add_command("d_body_text",BodyText())
         return app

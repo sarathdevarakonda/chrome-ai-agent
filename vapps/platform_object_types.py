@@ -1,5 +1,7 @@
 import abc
 
+
+
 class ICommand(abc.ABC):
     @abc.abstractmethod
     def do_run(self, vapp_context, *args):
@@ -11,12 +13,14 @@ class IFrameData(abc.ABC):
         pass
 
 class VApp(abc.ABC):
-    def __init__(self,name):
-        self.context_store = {}
+    def __init__(self):
+        self.ctx = {}
         self.command_store = {}
         self.frame_data_store = {}
-        self.name = name
 
+    @abc.abstractmethod
+    def name(self):
+        return "NO NAME"
     
     @abc.abstractmethod
     def destroy(self):
@@ -31,19 +35,16 @@ class VApp(abc.ABC):
             command = self.get_command(command_name)
             print(command)
             if command:
-                command.do_run(self.context_store, *command_args)
+                command.do_run(self.ctx, *command_args)
             else:
                 print(f"Command '{command_name}' not found.")
-
-    def get_context(self, key):
-        return self.context_store.get(key)
 
     def get_command(self, key):
         return self.command_store.get(key)
 
     def get_frame_data(self, key):
         f_data =  self.frame_data_store.get(key)
-        return f_data.get_frame_data(self.context_store)
+        return f_data.get_frame_data(self.ctx)
     
     def add_command(self, key, command):
         self.command_store[key] = command
@@ -52,11 +53,11 @@ class VApp(abc.ABC):
         self.frame_data_store[key] = frame_data_handler
         
     def add_context_object(self, key, context_object):
-        self.context_store[key] = context_object
+        self.ctx[key] = context_object
     
     def remove_context_object(self, key):
-        self.context_store[key].destroy()
-        del self.context_store[key]
+        self.ctx[key].destroy()
+        del self.ctx[key]
 
 class IContextObject(abc.ABC):
     def __init__(self):
@@ -71,8 +72,11 @@ class IContextObject(abc.ABC):
 
 class IInstallScript(abc.ABC):
     @abc.abstractmethod
-    def install(self):
+    def initialize(self):
         """
         Abstract method to install a VApp.
         """
+        pass
+    @abc.abstractmethod
+    def name(self):
         pass

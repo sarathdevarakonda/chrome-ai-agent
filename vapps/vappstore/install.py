@@ -8,11 +8,10 @@ class VappStoreInstallScript(IInstallScript):
     def __init__(self) -> None:
         super().__init__()
         
-    @property
     def name():
         return "vappstore"
     
-    def intialize(self):
+    def initialize(self):
         app = VappStore()
         app.add_command("d_list_installed_apps",ListInstalledVApps())
         app.add_command("install",InstallVapp())

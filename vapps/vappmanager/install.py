@@ -1,4 +1,4 @@
-from types import VApp
+from vapps.platform_object_types import VApp
 from vapps.vappmanager.context import VappManagerInstance
 from vapps.vappmanager.data_commands import ListVApps
 
@@ -12,16 +12,14 @@ class VappManagerInstallScript(IInstallScript):
     def __init__(self) -> None:
         super().__init__()
 
-    @property
     def name():
-        return VappManagerVapp.name
+        return "vappmanager"
         
-    def intialize(self):
-        app = VappManagerVapp(self.name)
+    def initialize(self):
+        app = VappManagerVapp()
         manager = VappManagerInstance()
-        manager.value.add_app(VappStore())
-        app.add_context_object("manager", VappManagerInstance())
+        app.add_context_object("manager", manager)
 
-        app.add_command("d_list_apps",ListVApps())
-        app.add_command("add_app",AddVApp())
+        app.add_command("d_list_vapps",ListVApps())
+        app.add_command("add_vapp",AddVApp())
         return app

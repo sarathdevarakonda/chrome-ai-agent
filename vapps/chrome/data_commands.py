@@ -4,8 +4,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 class BodyText(ICommand):
-    def do_run(self, context_store, *args):
-        driver = context_store.get("driver").value
+    def do_run(self, ctx, *args):
+        driver = ctx.get("driver").value
         if not driver:
             print("WebDriver instance not found in context store.")
             return None
@@ -51,13 +51,13 @@ class PageTabNavigatedElements(ICommand):
             """
 
 
-    def do_run(self, context_store, *args):
+    def do_run(self, ctx, *args):
         
         if not all([self.common, self.io_module, self.time_module, self.csv_package]):
             print("Failed to import necessary modules.")
             return None
 
-        driver = context_store.get("driver").value
+        driver = ctx.get("driver").value
         if not driver:
             print("WebDriver instance not found in context store.")
             return None
@@ -158,13 +158,13 @@ class SpecificElementsData(ICommand):
             """
 
 
-    def do_run(self, context_store, *args):
+    def do_run(self, ctx, *args):
             
         if not all([self.common, self.io_module, self.time_module, self.csv_package]):
             print("Failed to import necessary modules.")
             return None
 
-        driver = context_store.get("driver").value
+        driver = ctx.get("driver").value
         if not driver:
             print("WebDriver instance not found in context store.")
             return None

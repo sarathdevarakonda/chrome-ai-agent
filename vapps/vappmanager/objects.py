@@ -17,15 +17,16 @@ class VAppManager:
     def __init__(self):
         self.apps = {}
 
-    def add_app(self, app):
-        if app.name in self.apps:
+    def add_vapp_instance(self, app):
+        print(app.name)
+        self.apps[app.name()] = app
+        
+    def add_vapp(self, app):
+        if app.name() in self.apps:
             print(f"Error: App of type {app.__class__.__name__} already exists.")
         loaded_app = app.install()
-        self.apps[app.name] = loaded_app
+        self.apps[app.name()] = loaded_app
 
-    def get_app(self, app_id):
-        for  app_instance in self.apps.items():
-            if app_instance.name == app_id:
-                return app_instance
-        print(f"Error: App with id {app_id} not found.")
-        return None
+    def get_vapp(self, app_id):
+        return self.apps.get(app_id, None)
+

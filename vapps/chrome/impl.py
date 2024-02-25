@@ -1,7 +1,7 @@
 
 
 
-from types import VApp
+from vapps.platform_object_types import VApp
 
 class ChromeVapp(VApp):
     def __init__(self):
@@ -10,3 +10,6 @@ class ChromeVapp(VApp):
     @property
     def name():
         return "chrome"
+    
+    def destroy(self):
+        return super().destroy()

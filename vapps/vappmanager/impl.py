@@ -1,6 +1,4 @@
-from types import VApp
-from vapps.vappmanager.context import VappManagerInstance
-from vapps.vappmanager.data_commands import ListApps
+from vapps.platform_object_types import VApp
 
 class VappManagerVapp(VApp):
     def __init__(self):
@@ -10,3 +8,5 @@ class VappManagerVapp(VApp):
     def name():
         return "vappmanager"
     
+    def destroy(self):
+        return super().destroy()

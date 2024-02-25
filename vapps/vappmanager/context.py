@@ -1,6 +1,6 @@
 from vapps.platform_object_types import  IContextObject
-from package_manager import PackageManager
-from objects import VAppManager
+from vapps.package_manager import PackageManager
+from vapps.vappmanager.objects import VAppManager
 
 class VappManagerInstance(IContextObject):
 
