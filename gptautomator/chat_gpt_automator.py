@@ -8,6 +8,8 @@ import os
 import socket
 import threading
 import time
+from dotenv import load_dotenv
+load_dotenv()
 
 class ChatGPTAutomation:
 
@@ -16,7 +18,7 @@ class ChatGPTAutomation:
         
 
     def createDriver(self):
-        self.chrome_path = '"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"'
+        self.chrome_path = os.getenv('CHROME_PATH')
         url = r"https://chat.openai.com"
         free_port = self.find_available_port()
         print(f"free port {free_port}")
